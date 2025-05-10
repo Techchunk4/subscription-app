@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h4>My Dashboard</h4>
+            </div>
+            <div class="card-body">
+                {% if user.subscription_active %}
+                <div class="alert alert-success">
+                    <h5>Active Subscription</h5>
+                    <p>Plan: {{ user.subscription.plan.name }}</p>
+                    <p>Renews on: {{ user.subscription.current_period_end|date:"F j, Y" }}</p>
+                </div>
+                {% else %}
+                <div class="alert alert-warning">
+                    <h5>No Active Subscription</h5>
+                    <a href="{% url 'subscriptions:plans' %}" class="btn btn-primary">
+                        Choose a Plan
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
